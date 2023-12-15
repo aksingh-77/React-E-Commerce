@@ -1,11 +1,15 @@
-
 import './App.css';
-import ListItem from './components/ListItem';
+// import ListItem from './components/ListItems/ListItem';
+import Products from './components/Products/Products';
+import Header from './components/Layouts/Header';
+import Subheader from './components/Layouts/Subheader';
 
 const App = () => {
   return (
-    <div className="App">
-      <ListItem />
+    <div>
+      <Header />
+      <Subheader />
+      <Products />
     </div>
   );
 }
