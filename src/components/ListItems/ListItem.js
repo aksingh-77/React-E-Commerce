@@ -1,6 +1,6 @@
 import AddToCartIcon from "../../assets/icons/add_cart.svg";
 import { useState } from "react";
-const ListItem = ({data}) => {
+const ListItem = ({data, updateItemTitle}) => {
     const [counter, setCounter] = useState(0);
 
     const increasedCounterByOne = () => {
@@ -15,7 +15,7 @@ const ListItem = ({data}) => {
     }    
     return (
         <div className={"item-card"}>
-            <img className={"img-fluid"} src={`/assets/${data.thumnail}`} alt={data.title}/>
+            <img className={"img-fluid"} src={`/assets/${data.thumbnail}`} alt={data.title}/>
             <div className={"item-card__information"}>
                 <div className={"pricing"}>
                     <span>${data.discountedPrice}</span>
@@ -27,6 +27,8 @@ const ListItem = ({data}) => {
                     <h3>{data.title}</h3>
                 </div>
             </div>
+            {/* by using this arrow method for below method call we made sure that the method is not executed but only the reference is provided */}
+            <button onClick={() => updateItemTitle(data.id)}>Update title</button>
             {(
                 counter < 1 ? 
                 <button className={"cart-add"} onClick={increasedCounterByOne}>
