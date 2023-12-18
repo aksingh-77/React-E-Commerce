@@ -28,7 +28,7 @@ const ListItem = ({data, updateItemTitle}) => {
                 </div>
             </div>
             {/* by using this arrow method for below method call we made sure that the method is not executed but only the reference is provided */}
-            <button onClick={() => updateItemTitle(data.id)}>Update title</button>
+            {/* <button onClick={() => updateItemTitle(data.id)}>Update title</button> */}
             {(
                 counter < 1 ? 
                 <button className={"cart-add"} onClick={increasedCounterByOne}>

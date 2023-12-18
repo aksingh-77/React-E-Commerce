@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import ListItem from "../ListItems/ListItem";
 import axios  from "axios";
+import Loader from "../UI/Loader";
 
 const Products = ({data}) => {
     const [items, setItems] = useState([])
+    const [loader, setLoader] = useState(true);
 
     useEffect(()=>{
     //    const result =  fetch("https://react-ecomm-2023-default-rtdb.firebaseio.com/items.json")
@@ -29,10 +31,15 @@ const Products = ({data}) => {
                     }
                 });
                 console.log({transformedData});
+                // setLoader(false);
                 setItems(transformedData);
             } 
             catch (error) {
+                // setLoader(false);
                 console.log({error})
+            }
+            finally{
+                setLoader(false);
             }
             
         }
@@ -52,15 +59,17 @@ const Products = ({data}) => {
             let index = data.findIndex(e => e.id === itemId);
             data[index]['title'] = title;
             setItems(data);
-            
+
         } catch (error) {
             console.log({error})
         }
         
 
     }
+    // console.log({loader})
 
     return (
+        <>
         <div className={"product-list"}>
             <div className={"product-list--wrapper"}>
                 {/* <ListItem data={items[0]} />
@@ -73,6 +82,11 @@ const Products = ({data}) => {
                 }
             </div>
         </div>
+        {
+            
+            loader && <Loader />
+        }
+        </>
     )
 }
 
