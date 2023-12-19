@@ -3,9 +3,10 @@ import ListItem from "../ListItems/ListItem";
 import axios  from "axios";
 import Loader from "../UI/Loader";
 
-const Products = ({data}) => {
+const Products = ({onAddItem, onRemoveItem}) => {
     const [items, setItems] = useState([])
     const [loader, setLoader] = useState(true);
+    const [presentItems, setPresentItems] = useState([]);
 
     useEffect(()=>{
     //    const result =  fetch("https://react-ecomm-2023-default-rtdb.firebaseio.com/items.json")
@@ -47,6 +48,26 @@ const Products = ({data}) => {
         fetchItems();
     },[])
 
+    const handleAddItem = id =>{
+        console.log(id);
+        if(presentItems.indexOf(id) > -1){
+            return;
+        }
+        setPresentItems([...presentItems, id]);
+        onAddItem();
+    }
+
+    const handleRemoveItem = id => {
+        console.log(id);
+        let index = presentItems.indexOf(id)
+        if(index > -1){
+            let items = [...presentItems];
+            items.splice(index , 1)
+            setPresentItems([...items]);
+            onRemoveItem();
+        }
+    }
+
     const updateItemTitle = async(itemId) => {
         console.log("Item with Id", itemId);
         try {
@@ -77,7 +98,7 @@ const Products = ({data}) => {
                 {
                     items.map(item=>{
                         // console.log(item);
-                        return (<ListItem key={item.id} data={item} updateItemTitle={updateItemTitle}/>)
+                        return (<ListItem onAdd={handleAddItem} onRemove={handleRemoveItem} key={item.id} data={item} updateItemTitle={updateItemTitle}/>)
                     })
                 }
             </div>
