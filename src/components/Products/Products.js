@@ -3,10 +3,10 @@ import ListItem from "../ListItems/ListItem";
 import axios  from "axios";
 import Loader from "../UI/Loader";
 
-const Products = ({onAddItem, onRemoveItem}) => {
+const Products = ({onAddItem, onRemoveItem, eventList}) => {
     const [items, setItems] = useState([])
     const [loader, setLoader] = useState(true);
-    const [presentItems, setPresentItems] = useState([]);
+    // const [presentItems, setPresentItems] = useState([]);
 
     useEffect(()=>{
     //    const result =  fetch("https://react-ecomm-2023-default-rtdb.firebaseio.com/items.json")
@@ -48,6 +48,18 @@ const Products = ({onAddItem, onRemoveItem}) => {
          
         fetchItems();
     },[])
+
+    useEffect(() => {
+        if(eventList.id > -1){
+            if(eventList.type == -1){
+                handleAddItem(eventList.id);
+            }
+            else if(eventList.type == 1){
+                handleRemoveItem(eventList.id);
+            }
+        }
+
+    }, [eventList])
 
     const handleAddItem = id =>{
         console.log(id);

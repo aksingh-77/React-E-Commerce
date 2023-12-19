@@ -4,7 +4,7 @@ import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
 
 
-const Cart = ({count, items}) => {
+const Cart = ({count, items, onHandleEvent}) => {
 
     let [showModal, setShowModal] = useState(false);
     const handleModal = () => {
@@ -33,7 +33,7 @@ const Cart = ({count, items}) => {
                                 {
                                     count > 0 ?
                                     items.map(item => {
-                                        return (<CartItem data={item} key={item.id}/>)
+                                        return (<CartItem data={item} key={item.id} onEmitDecreaseItem={id => onHandleEvent(id, 1)} onEmitIncreaseItem={id => onHandleEvent(id, -1)}/>)
                                     })
                                     :
                                     <div className={"empty-cart"}>Please add something in your cart! </div> 
