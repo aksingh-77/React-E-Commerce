@@ -1,20 +1,32 @@
-import AddToCartIcon from "../../assets/icons/add_cart.svg";
+import AddToCartIcon from "../../../assets/icons/add_cart.svg";
 import { Fragment, useState } from "react";
-import Modal from "../UI/Modal";
-const ListItem = ({data, onAdd, onRemove}) => {
+import Modal from "../../UI/Modal";
+import {useSelector, useDispatch} from 'react-redux';
+import { addItemHandler, removeItemHandler } from "../../../actions";
+// import {useDispatch} from 'react-redux';
+
+
+const ListItem = ({data}) => {
     // const [counter, setCounter] = useState(0);
     let [showModal, setShowModal] = useState(false);
+    const item = useSelector( state => state.items.find(item => item.id === data.id));
+    const dispatch = useDispatch()
+
 
     const increasedCounterByOne = event => {
         // event.stopPropagation method is used to stop the propagaton of showing modal i.e it won't bubble up till the root element
         event.stopPropagation()
-        onAdd(data.id)
+        // console.log({data})
+        dispatch(addItemHandler(data))
+        // console.log('ADD_ITEM')
+        // onAdd(data.id)
         // setCounter(counter +1);
     }
 
     const decreasedCounterByOne = event => {
         event.stopPropagation()
-        onRemove(data.id)
+        dispatch(removeItemHandler(data.id))
+        // onRemove(data.id)
         // if(counter === 0){
         //     return;
         // }
@@ -45,7 +57,7 @@ const ListItem = ({data, onAdd, onRemove}) => {
                 {/* by using this arrow method for below method call we made sure that the method is not executed but only the reference is provided */}
                 {/* <button onClick={() => updateItemTitle(data.id)}>Update title</button> */}
                 {(
-                    data.quantity < 1 ? 
+                    !item || item?.quantity < 1 ? 
                     <button className={"cart-add"} onClick={increasedCounterByOne}>
                         <span>Add to Cart</span>
                         <img src={AddToCartIcon} alt="cart Icon"></img>
@@ -53,7 +65,7 @@ const ListItem = ({data, onAdd, onRemove}) => {
                     : 
                     <div className={"cart-addon"}>
                         <button onClick={decreasedCounterByOne}><span>-</span></button>
-                        <span className={"counter"}>{data.quantity}</span>
+                        <span className={"counter"}>{item.quantity}</span>
                         <button onClick={increasedCounterByOne}><span>+</span></button>
                     </div> 
                 )}
@@ -78,7 +90,7 @@ const ListItem = ({data, onAdd, onRemove}) => {
                         </div>
                         <p>{data.description}</p>
                         {(
-                            data.quantity < 1 ? 
+                            !item || item?.quantity < 1 ? 
                             <button className={"cart-add card-add__modal"} onClick={increasedCounterByOne}>
                                 <span>Add to Cart</span>
                                 <img src={AddToCartIcon} alt="cart Icon"></img>
@@ -86,7 +98,7 @@ const ListItem = ({data, onAdd, onRemove}) => {
                             : 
                             <div className={"cart-addon cart-addon__modal"}>
                                 <button onClick={decreasedCounterByOne}><span>-</span></button>
-                                <span className={"counter"}>{data.quantity}</span>
+                                <span className={"counter"}>{item.quantity}</span>
                                 <button onClick={increasedCounterByOne}><span>+</span></button>
                             </div> 
                         )}

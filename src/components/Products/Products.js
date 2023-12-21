@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import ListItem from "../ListItems/ListItem";
+import ListItem from "./ListItems/ListItem";
 import axios  from "axios";
 import Loader from "../UI/Loader";
 
-const Products = ({onAddItem, onRemoveItem, eventList}) => {
+const Products = () => {
     const [items, setItems] = useState([])
     const [loader, setLoader] = useState(true);
     // const [presentItems, setPresentItems] = useState([]);
@@ -28,11 +28,10 @@ const Products = ({onAddItem, onRemoveItem, eventList}) => {
                 const transformedData = data.map((item, index) => {
                     return {
                         ...item,
-                        quantity : 0,
                         id: index
                     }
                 });
-                console.log({transformedData});
+                // console.log({transformedData});
                 // setLoader(false);
                 setItems(transformedData);
             } 
@@ -49,71 +48,71 @@ const Products = ({onAddItem, onRemoveItem, eventList}) => {
         fetchItems();
     },[])
 
-    useEffect(() => {
-        if(eventList.id > -1){
-            if(eventList.type == -1){
-                handleAddItem(eventList.id);
-            }
-            else if(eventList.type == 1){
-                handleRemoveItem(eventList.id);
-            }
-        }
+    // useEffect(() => {
+    //     if(eventList.id > -1){
+    //         if(eventList.type === -1){
+    //             handleAddItem(eventList.id);
+    //         }
+    //         else if(eventList.type === 1){
+    //             handleRemoveItem(eventList.id);
+    //         }
+    //     }
 
-    }, [eventList])
+    // }, [eventList])
 
-    const handleAddItem = id =>{
-        console.log(id);
-        // if(presentItems.indexOf(id) > -1){
-        //     return;
-        // }
-        // setPresentItems([...presentItems, id]);
-        let data = [...items]
-        let index = data.findIndex(i => i.id === id);
-        data[index].quantity += 1;
-        setItems([...data]);
-        onAddItem(data[index]);
+    // const handleAddItem = id =>{
+    //     // console.log(id);
+    //     // if(presentItems.indexOf(id) > -1){
+    //     //     return;
+    //     // }
+    //     // setPresentItems([...presentItems, id]);
+    //     let data = [...items]
+    //     let index = data.findIndex(i => i.id === id);
+    //     data[index].quantity += 1;
+    //     setItems([...data]);
+    //     onAddItem(data[index]);
 
-    }
+    // }
 
-    const handleRemoveItem = id => {
-        console.log(id);
-        // let index = presentItems.indexOf(id)
-        // if(index > -1){
-        //     let items = [...presentItems];
-        //     items.splice(index , 1)
-        //     setPresentItems([...items]);
-        //     
-        // }
-        let data = [...items]
-        let index = data.findIndex(i => i.id === id);
-        if(data[index].quantity !== 0){
-            data[index].quantity -= 1;
-            setItems([...data]);
-            onRemoveItem(data[index]);
-        }
+    // const handleRemoveItem = id => {
+    //     console.log(id);
+    //     // let index = presentItems.indexOf(id)
+    //     // if(index > -1){
+    //     //     let items = [...presentItems];
+    //     //     items.splice(index , 1)
+    //     //     setPresentItems([...items]);
+    //     //     
+    //     // }
+    //     let data = [...items]
+    //     let index = data.findIndex(i => i.id === id);
+    //     if(data[index].quantity !== 0){
+    //         data[index].quantity -= 1;
+    //         setItems([...data]);
+    //         onRemoveItem(data[index]);
+    //     }
         
-    }
+    // }
 
-    const updateItemTitle = async(itemId) => {
-        console.log("Item with Id", itemId);
-        try {
-            let title = `Updated Title #item ${itemId}`
-            await axios.patch(`https://react-ecomm-2023-default-rtdb.firebaseio.com/items/${itemId}.json`,{
-            title:title
-            })
+    // const updateItemTitle = async(itemId) => {
+    //     console.log("Item with Id", itemId);
+    //     try {
+    //         let title = `Updated Title #item ${itemId}`
+    //         await axios.patch(`https://react-ecomm-2023-default-rtdb.firebaseio.com/items/${itemId}.json`,{
+    //         title:title
+    //         })
 
-            let data = [...items];
-            let index = data.findIndex(e => e.id === itemId);
-            data[index]['title'] = title;
-            setItems(data);
+    //         let data = [...items];
+    //         let index = data.findIndex(e => e.id === itemId);
+    //         data[index]['title'] = title;
+    //         setItems(data);
 
-        } catch (error) {
-            console.log({error})
-        }
+    //     } catch (error) {
+    //         console.log({error})
+    //     }
         
 
-    }
-    // console.log({loader})
+    // }
+    // // console.log({loader})
 
     return (
         <>
@@ -124,7 +123,9 @@ const Products = ({onAddItem, onRemoveItem, eventList}) => {
                 {
                     items.map(item=>{
                         // console.log(item);
-                        return (<ListItem onAdd={handleAddItem} onRemove={handleRemoveItem} key={item.id} data={item} updateItemTitle={updateItemTitle}/>)
+                        // return (<ListItem key={item.id} data={item} updateItemTitle={updateItemTitle}/>)
+
+                        return (<ListItem key={item.id} data={item} />)
                     })
                 }
             </div>

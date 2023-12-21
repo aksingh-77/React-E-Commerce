@@ -1,14 +1,7 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import {thunk} from 'redux-thunk';
-import DevTools from './DevTools';
 import mainReducer from "../reducers/index";
-
-const enhancer = compose(
-    // Middleware you want to use in development:
-    applyMiddleware(thunk),
-    // Required! Enable Redux DevTools with the monitors you chose
-    DevTools.instrument(),
-  );
+import { composeWithDevTools } from '@redux-devtools/extension';
   
 
 const store = createStore (
@@ -16,8 +9,8 @@ const store = createStore (
     {
         items : [],
         totalAmonut : 0
-    }, 
-    enhancer
+    },
+    composeWithDevTools(applyMiddleware(thunk))
 )
 
 export default store;
