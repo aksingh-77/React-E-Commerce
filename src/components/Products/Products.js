@@ -2,10 +2,16 @@ import { useState, useEffect } from "react";
 import ListItem from "./ListItems/ListItem";
 import axios  from "axios";
 import Loader from "../UI/Loader";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 const Products = () => {
     const [items, setItems] = useState([])
     const [loader, setLoader] = useState(true);
+    const [params, setParams] = useSearchParams();
+    const navigate = useNavigate();
+    const category = params.get("category");
+    console.log(category);
+    console.log({params})
     // const [presentItems, setPresentItems] = useState([]);
 
     useEffect(()=>{
@@ -23,8 +29,16 @@ const Products = () => {
 
         async function fetchItems(){
             try {
-                const response = await axios.get("https://react-ecomm-2023-default-rtdb.firebaseio.com/items.json");
+                let slug = `items.json`;
+                if(category){
+                    slug= `items-category-${category}.json`
+                }
+                const response = await axios.get(`https://react-ecomm-2023-default-rtdb.firebaseio.com/items/${slug}`);
                 const data = response.data;
+
+                if(!data){
+                    handleNotFound();
+                }
                 const transformedData = data.map((item, index) => {
                     return {
                         ...item,
@@ -46,7 +60,19 @@ const Products = () => {
         }
          
         fetchItems();
-    },[])
+
+        return () => {
+            setItems([]);
+            setLoader(true);
+
+        }
+    },[params])
+
+    const handleNotFound = () => {
+        
+        navigate("/404");
+        return;
+    }
 
     // useEffect(() => {
     //     if(eventList.id > -1){
