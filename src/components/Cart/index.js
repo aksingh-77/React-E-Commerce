@@ -11,8 +11,8 @@ const Cart = () => {
 
     let [showModal, setShowModal] = useState(false);
     let [orderModal, setOrderModal] = useState(false);
-    const items = useSelector( state => state.items);
-    const totalAmonut = useSelector(state => state.totalAmonut)
+    const items = useSelector( state => state.cart.items);
+    const totalAmonut = useSelector(state => state.cart.totalAmonut)
     // console.log({items})
     const dispatch = useDispatch();
 

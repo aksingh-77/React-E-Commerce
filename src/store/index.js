@@ -7,8 +7,8 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 const store = createStore (
     mainReducer, 
     {
-        items : [],
-        totalAmonut : 0
+        // items : [],
+        // totalAmonut : 0
     },
     composeWithDevTools(applyMiddleware(thunk))
 )

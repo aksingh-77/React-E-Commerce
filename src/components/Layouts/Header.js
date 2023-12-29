@@ -1,6 +1,14 @@
 import Cart from "../Cart";
 import SearchBox from "../UI/Search";
+import {useNavigate} from 'react-router-dom'
+import {useSelector} from 'react-redux';
+
+
 const Header = () => {
+    const navigate = useNavigate();
+    const authState = useSelector(state => state.auth);
+
+
     return (
         <div className={"header"}>
             <div className="nav-brand">
@@ -21,6 +29,14 @@ const Header = () => {
             <div className="searchBox-container">
                 <SearchBox />
             </div>
+
+
+            {
+                (authState && authState.idToken) ? 
+                    <button className={"login-btn"} >User Profile</button> :
+                    <button className={"login-btn"} onClick={() =>navigate("/login") }>Login</button>
+
+            }
 
              {/* ==================================== */}
             <div className="cart-container">

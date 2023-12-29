@@ -1,11 +1,38 @@
-import { Fragment } from "react"
+import React, { Fragment, useEffect } from "react"
+import {useNavigate, useLocation} from 'react-router-dom'
+import {useState} from 'react'
 
 const SearchBox = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const {search:queryString} = useLocation();
+    const [search, setSearch] = useState("");
+
+    useEffect(()=>{
+        const queryParams =  new URLSearchParams(location.search).get("search");
+        setSearch(queryParams || "");
+
+
+    },[queryString])
+
+
+    const handleInput = e => {
+        setSearch(e.target.value);
+    }
+
+    const handleFormSubmission =(event) =>{
+        event.preventDefault();
+        navigate({
+            search:`search=${search}`
+        })
+
+    }
+
     return (
         <Fragment>
             <form>
                     <input name="search" type="text"
-                        id="search" placeholder="Enter product name, category" />
+                        id="search" placeholder="Enter product name, category" value={search} onChange={handleInput}/>
                     <button type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-search" width="20"
                             height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" fill="none"

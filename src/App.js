@@ -2,6 +2,7 @@ import './App.css';
 import Products from './components/Products/Products';
 import Header from './components/Layouts/Header';
 import Subheader from './components/Layouts/Subheader';
+import AuthIndex from './components/Auth/Index';
 import {Routes, Route} from 'react-router-dom';
 
 
@@ -50,6 +51,8 @@ const App = () => {
       <Routes>
         <Route path="/404" element={<h1>404! Not Found</h1>} />
         <Route path="/" element={ <Products/> } />
+        <Route path="/login" element={<AuthIndex/>}/>
+        <Route path="/signup" element={<AuthIndex/>} />
         <Route path="/:category?" element={ <Products/> } />
         {/* <Route path="/*" navigate> */}
       </Routes>

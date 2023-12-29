@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 import ListItem from "./ListItems/ListItem";
 import axios  from "axios";
 import Loader from "../UI/Loader";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 const Products = () => {
     const [items, setItems] = useState([])
     const [loader, setLoader] = useState(true);
-    const [params, setParams] = useSearchParams();
+    const {category} = useParams();
     const navigate = useNavigate();
-    const category = params.get("category");
-    console.log(category);
-    console.log({params})
-    // const [presentItems, setPresentItems] = useState([]);
+    const {search} = useLocation();
+
+    const queryParams = new URLSearchParams(search).get(search);
+    // console.log(category);
 
     useEffect(()=>{
     //    const result =  fetch("https://react-ecomm-2023-default-rtdb.firebaseio.com/items.json")
@@ -31,8 +31,12 @@ const Products = () => {
             try {
                 let slug = `items.json`;
                 if(category){
-                    slug= `items-category-${category}.json`
+                    slug=`items-${category}.json`;
                 }
+                if(queryParams){
+                    slug+= `?search=${queryParams}`;
+                }
+
                 const response = await axios.get(`https://react-ecomm-2023-default-rtdb.firebaseio.com/items/${slug}`);
                 const data = response.data;
 
@@ -66,7 +70,7 @@ const Products = () => {
             setLoader(true);
 
         }
-    },[params])
+    },[category, queryParams])
 
     const handleNotFound = () => {
         
