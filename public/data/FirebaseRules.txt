@@ -1,0 +1,30 @@
+{
+    "rules": {
+      "orders": {
+        "$uid": {
+         ".read": "$uid === auth.uid",
+         ".write": "$uid === auth.uid" 
+        }
+      },
+      "items": {
+        ".read": true,  // 2021-11-16
+        ".write": true,  // 2021-11-16
+      },
+      "items-category-1": {
+        ".read": true,  // 2021-11-16
+        ".write": true,  // 2021-11-16
+      },
+      "items-category-2": {
+        ".read": true,  // 2021-11-16
+        ".write": true,  // 2021-11-16
+      },
+      "items-category-3": {
+        ".read": true,  // 2021-11-16
+        ".write": true,  // 2021-11-16
+      },
+      "items-category-4": {
+        ".read": true,  // 2021-11-16
+        ".write": true,  // 2021-11-16
+      }
+    }
+  }

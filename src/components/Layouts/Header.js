@@ -1,12 +1,18 @@
 import Cart from "../Cart";
 import SearchBox from "../UI/Search";
 import {useNavigate} from 'react-router-dom'
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import { logout } from "../../actions/auth";
 
 
 const Header = () => {
     const navigate = useNavigate();
     const authState = useSelector(state => state.auth);
+    const dispacth = useDispatch()
+
+    const logoutHandler = () => {
+        dispacth(logout())
+    }
 
 
     return (
@@ -33,7 +39,10 @@ const Header = () => {
 
             {
                 (authState && authState.idToken) ? 
-                    <button className={"login-btn"} >User Profile</button> :
+                    <div className="user-actions">
+                        <button title="User Profile" className="material-icons">account_circle</button>
+                        <button onClick={logoutHandler} title="Logout" className="material-icons">logout</button>
+                    </div> :
                     <button className={"login-btn"} onClick={() =>navigate("/login") }>Login</button>
 
             }

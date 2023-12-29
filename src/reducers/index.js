@@ -2,7 +2,7 @@ import {combineReducers} from 'redux'
 import authReducer from './auth';
 const mainReducer = (state = {
     items : [],
-    totalAmonut: 0
+    totalAmount: 0
 }, action) => {
     const { type, payload } = action;
     
@@ -26,12 +26,12 @@ const mainReducer = (state = {
                 })
             }
 
-            const totalAmonut = state.totalAmonut + payload.item.discountedPrice
-            // console.log({items, totalAmonut})
+            const totalAmount = state.totalAmount + payload.item.discountedPrice
+            // console.log({items, totalAmount})
             return {
                 ...state,
                 items: items,
-                totalAmonut: totalAmonut
+                totalAmount: totalAmount
             }
             
         }
@@ -42,7 +42,7 @@ const mainReducer = (state = {
             console.log({payload})
             console.log({index})
             console.log({items});
-            let totalAmonut = state.totalAmonut - items[index].discountedPrice;
+            let totalAmount = state.totalAmount - items[index].discountedPrice;
             if(items[index].quantity === 1){
                 items.splice(index, 1)
             }
@@ -57,7 +57,7 @@ const mainReducer = (state = {
             return {
                 ...state,
                 items: items,
-                totalAmonut : totalAmonut
+                totalAmount : totalAmount
             } 
 
         }

@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
 import OrderSuccessModal from "../UI/OrderSuccess";
-import { addItemHandler, removeItemHandler, clearCartHandler } from "../../actions";
+import { addItemHandler, removeItemHandler, clearCartHandler, placeOrderHandler } from "../../actions";
 
 
 const Cart = () => {
@@ -12,8 +12,8 @@ const Cart = () => {
     let [showModal, setShowModal] = useState(false);
     let [orderModal, setOrderModal] = useState(false);
     const items = useSelector( state => state.cart.items);
-    const totalAmonut = useSelector(state => state.cart.totalAmonut)
-    // console.log({items})
+    const totalAmount = useSelector(state => state.cart.totalAmount)
+    const [orderId, setOrderId] = useState("");
     const dispatch = useDispatch();
 
 
@@ -27,6 +27,22 @@ const Cart = () => {
         setOrderModal(orderModal = !orderModal);
         
     }
+
+    const orderHandler = () => {
+        dispatch(placeOrderHandler(response => {
+            if(response.error){
+                alert(response.data.error || "some error occurred, please try again");
+            }
+            else{
+                setOrderId(response.data.name)
+                setShowModal(false);
+                setOrderModal(previous => !previous)
+            }
+        }));
+        
+    }
+
+
 
     const dispatchEvents = (type, item) => {
         // console.log({item})
@@ -72,9 +88,9 @@ const Cart = () => {
                                 <div className={"checkout-modal_footer"}>
                                     <div className={"totalAmount"}>
                                         <h4>Total Amount :</h4>
-                                        <h4> {totalAmonut} &nbsp;INR</h4>
+                                        <h4> {totalAmount} &nbsp;INR</h4>
                                     </div>
-                                    <button onClick={handleOrderModal}>Order Now</button>
+                                    <button onClick={orderHandler}>Order Now</button>
 
                                 </div>
                             }
@@ -87,7 +103,7 @@ const Cart = () => {
 
                 {
                     orderModal &&
-                    <OrderSuccessModal  onClose={handleOrderModal}/>
+                    <OrderSuccessModal orderId={orderId} onClose={handleOrderModal}/>
                 }
             </div>
 

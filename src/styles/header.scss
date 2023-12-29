@@ -116,3 +116,16 @@ body {
 .img-fluid {
   max-width: 100%;
   height: auto; }
+
+.user-actions {
+    display: flex;
+    align-items: center;
+
+    button {
+        color: $white;
+        background-color: unset;
+        border: unset;
+        margin: 0 10px;
+        cursor: pointer;
+    }
+}

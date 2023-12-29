@@ -4,9 +4,20 @@ import Header from './components/Layouts/Header';
 import Subheader from './components/Layouts/Subheader';
 import AuthIndex from './components/Auth/Index';
 import {Routes, Route} from 'react-router-dom';
+import { useEffect } from 'react';
+import { checkIsLoggedIn } from './actions/auth';
+import { useDispatch, useSelector} from 'react-redux';
 
 
 const App = () => {
+  const dispatch =  useDispatch()
+  const authState = useSelector(state => state.auth);
+
+
+  useEffect(()=>{
+
+    dispatch(checkIsLoggedIn(() => {}))
+  }, [])
   // const [cartItems, setCartItems] = useState([]);
   // const [eventQueue, setEventQueue] = useState({id:"", type:""});
     
@@ -51,8 +62,14 @@ const App = () => {
       <Routes>
         <Route path="/404" element={<h1>404! Not Found</h1>} />
         <Route path="/" element={ <Products/> } />
+        {/* { !authState.idToken && 
+          <Route path="/login" element={<AuthIndex/>}/>
+          <Route path="/signup" element={<AuthIndex/>} />
+        
+        } */}
         <Route path="/login" element={<AuthIndex/>}/>
         <Route path="/signup" element={<AuthIndex/>} />
+        
         <Route path="/:category?" element={ <Products/> } />
         {/* <Route path="/*" navigate> */}
       </Routes>

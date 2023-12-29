@@ -8,7 +8,7 @@ const store = createStore (
     mainReducer, 
     {
         // items : [],
-        // totalAmonut : 0
+        // totalAmount : 0
     },
     composeWithDevTools(applyMiddleware(thunk))
 )
