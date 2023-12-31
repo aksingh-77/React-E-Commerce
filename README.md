@@ -128,7 +128,7 @@ Kuler is used to give colors to the commands on CLI
 <!-- 1. Get a free API Key at [https://example.com](https://example.com) -->
 1. Clone the repo
    ```sh
-   git clone https://github.com/aksingh-77/Flash-E-Commerce
+   git clone https://github.com/aksingh-77/React-E-Commerce
    ```
 
 2. Install NPM packages used in this project 
@@ -138,7 +138,7 @@ Kuler is used to give colors to the commands on CLI
 
 3. Navigate to Project Directory:
     ```sh
-   cd Flash-E-Commerce
+   cd React-E-Commerce
    ```
 
 4. Start the Project by using npm start command
@@ -224,7 +224,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Abhishek Singh - [![Linkedin][linkedin-shield]][linkedin-url] || [![GitHub][Github-shield]][github-url]
 
-Project Link: [Flash E-Commerce App](https://github.com/aksingh-77/React-E-Commerce)
+Project Link: [React E-Commerce App](https://github.com/aksingh-77/React-E-Commerce)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- ================================================================================================================================== -->
@@ -260,7 +260,7 @@ I extend our heartfelt appreciation to the following individuals and communities
 
 
 [github-shield]:https://img.shields.io/badge/-GitHub-black.svg?style=for-the-badge&logo=github&colorB=555
-[github-url]:https://img.shields.io/github/downloads/aksingh-77/aksingh-77/total
+[github-url]:https://github.com/aksingh-77
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-blue.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/abhishek-singh-866a671a0/
 
